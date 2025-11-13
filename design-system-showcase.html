@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERDx Design System - Professional Database Design Interface</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Colors - Light Mode */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-100: #dbeafe;
+
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+
+            /* Entity Colors */
+            --entity-blue: #3b82f6;
+            --entity-indigo: #6366f1;
+            --entity-violet: #8b5cf6;
+            --entity-purple: #a855f7;
+            --entity-pink: #ec4899;
+            --entity-rose: #f43f5e;
+            --entity-orange: #f97316;
+            --entity-emerald: #059669;
+            --entity-teal: #14b8a6;
+            --entity-cyan: #06b6d4;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+            /* Spacing */
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+
+            /* Border Radius */
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+        }
+
+        [data-theme="dark"] {
+            --gray-50: #18181b;
+            --gray-100: #27272a;
+            --gray-200: #3f3f46;
+            --gray-300: #52525b;
+            --gray-400: #71717a;
+            --gray-500: #a1a1aa;
+            --gray-600: #d4d4d8;
+            --gray-700: #e4e4e7;
+            --gray-800: #f4f4f5;
+            --gray-900: #fafafa;
+
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.5;
+            transition: background-color 200ms ease, color 200ms ease;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 var(--space-6);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        [data-theme="dark"] .header {
+            background: var(--gray-50);
+            border-bottom-color: var(--gray-200);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-600);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-md);
+            color: var(--gray-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 150ms ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-16) var(--space-6);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: var(--space-16);
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--space-4);
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: var(--space-16);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--space-6);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] .card {
+            background: var(--gray-50);
+            border-color: var(--gray-200);
+        }
+
+        /* Color Swatch */
+        .color-swatch {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .color-swatch {
+            background: var(--gray-50);
+            border-color: var(--gray-200);
+        }
+
+        .color-sample {
+            height: 80px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: var(--space-3);
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .color-hex {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 150ms ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-600);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-700);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-100);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gray-600);
+        }
+
+        .btn-ghost:hover {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            justify-content: center;
+            border-radius: var(--radius-md);
+        }
+
+        /* Entity Card */
+        .entity-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all 150ms ease;
+        }
+
+        .entity-card:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        [data-theme="dark"] .entity-card {
+            background: var(--gray-50);
+            border-color: var(--gray-200);
+        }
+
+        .entity-header {
+            padding: 0.875rem 1rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .entity-body {
+            background: white;
+        }
+
+        [data-theme="dark"] .entity-body {
+            background: var(--gray-50);
+        }
+
+        .field {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            transition: background 100ms ease;
+        }
+
+        .field:last-child {
+            border-bottom: none;
+        }
+
+        .field:hover {
+            background: var(--gray-50);
+        }
+
+        [data-theme="dark"] .field {
+            border-bottom-color: var(--gray-200);
+        }
+
+        [data-theme="dark"] .field:hover {
+            background: var(--gray-100);
+        }
+
+        .field-icon {
+            width: 16px;
+            height: 16px;
+            font-size: 12px;
+        }
+
+        .field-name {
+            flex: 1;
+            color: var(--gray-700);
+        }
+
+        .field-type {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .field-primary {
+            background: #fffbeb;
+        }
+
+        [data-theme="dark"] .field-primary {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .field-foreign {
+            background: #eff6ff;
+        }
+
+        [data-theme="dark"] .field-foreign {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Input */
+        .input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            background: white;
+            color: var(--gray-900);
+            transition: all 150ms ease;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px var(--primary-100);
+        }
+
+        .input::placeholder {
+            color: var(--gray-400);
+        }
+
+        [data-theme="dark"] .input {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+
+        /* Chat */
+        .chat-message {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .chat-bubble {
+            border-radius: var(--radius-lg);
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-bubble-ai {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .chat-bubble-user {
+            background: var(--primary-600);
+            color: white;
+        }
+
+        [data-theme="dark"] .chat-bubble-ai {
+            background: var(--gray-100);
+        }
+
+        /* Canvas */
+        .canvas {
+            background: var(--gray-50);
+            background-image:
+                linear-gradient(var(--gray-200) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gray-200) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            min-height: 400px;
+            position: relative;
+            padding: var(--space-8);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: var(--radius-base);
+        }
+
+        .badge-primary {
+            background: var(--primary-100);
+            color: var(--primary-700);
+        }
+
+        .badge-gray {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        /* Utility */
+        .text-gray-600 { color: var(--gray-600); }
+        .text-sm { font-size: 0.875rem; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: var(--space-4); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <span>ERDx Design System</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Professional Design System</h1>
+            <p>A refined, enterprise-grade design system for database architects and developers. Clean, precise, and timeless.</p>
+        </div>
+
+        <!-- Colors Section -->
+        <section class="section">
+            <h2 class="section-title">Colors</h2>
+
+            <h3 class="section-subtitle">Neutral Palette</h3>
+            <div class="grid grid-5">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #fafafa;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Gray 50</div>
+                        <div class="color-hex">#fafafa</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #e5e5e5;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Gray 200</div>
+                        <div class="color-hex">#e5e5e5</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #a3a3a3;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Gray 400</div>
+                        <div class="color-hex">#a3a3a3</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #525252;"></div>
+                    <div class="color-info">
+                        <div class="color-name" style="color: white;">Gray 600</div>
+                        <div class="color-hex" style="color: rgba(255,255,255,0.7);">#525252</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #171717;"></div>
+                    <div class="color-info">
+                        <div class="color-name" style="color: white;">Gray 900</div>
+                        <div class="color-hex" style="color: rgba(255,255,255,0.7);">#171717</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Accent Colors</h3>
+            <div class="grid grid-4">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #3b82f6;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-hex">#3b82f6</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #10b981;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-hex">#10b981</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #f59e0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-hex">#f59e0b</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #ef4444;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Error</div>
+                        <div class="color-hex">#ef4444</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Entity Colors</h3>
+            <div class="grid grid-5">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #3b82f6;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Blue</div>
+                        <div class="color-hex">#3b82f6</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #6366f1;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Indigo</div>
+                        <div class="color-hex">#6366f1</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #8b5cf6;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Violet</div>
+                        <div class="color-hex">#8b5cf6</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #ec4899;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Pink</div>
+                        <div class="color-hex">#ec4899</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #f97316;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Orange</div>
+                        <div class="color-hex">#f97316</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #059669;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Emerald</div>
+                        <div class="color-hex">#059669</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #14b8a6;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Teal</div>
+                        <div class="color-hex">#14b8a6</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #06b6d4;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Cyan</div>
+                        <div class="color-hex">#06b6d4</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section class="section">
+            <h2 class="section-title">Buttons</h2>
+            <div class="card">
+                <h3 class="section-subtitle" style="margin-top: 0;">Button Variants</h3>
+                <div class="flex gap-4 mb-6">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Primary
+                    </button>
+                    <button class="btn btn-secondary">
+                        Secondary
+                    </button>
+                    <button class="btn btn-ghost">
+                        Ghost
+                    </button>
+                </div>
+
+                <h3 class="section-subtitle">Icon Buttons</h3>
+                <div class="flex gap-2">
+                    <button class="btn btn-ghost btn-icon">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="btn btn-ghost btn-icon">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="btn btn-ghost btn-icon">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="btn btn-ghost btn-icon">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entity Cards Section -->
+        <section class="section">
+            <h2 class="section-title">Entity Cards</h2>
+            <div class="grid grid-3">
+                <!-- Users Table -->
+                <div class="entity-card">
+                    <div class="entity-header" style="background: var(--entity-blue);">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-table"></i>
+                            <span>Users</span>
+                        </div>
+                        <i class="fas fa-grip-vertical" style="opacity: 0.6;"></i>
+                    </div>
+                    <div class="entity-body">
+                        <div class="field field-primary">
+                            <i class="fas fa-key field-icon" style="color: #f59e0b;"></i>
+                            <span class="field-name" style="font-weight: 600;">id</span>
+                            <span class="field-type">INT</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">username</span>
+                            <span class="field-type">VARCHAR(50)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">email</span>
+                            <span class="field-type">VARCHAR(100)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">created_at</span>
+                            <span class="field-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Posts Table -->
+                <div class="entity-card">
+                    <div class="entity-header" style="background: var(--entity-violet);">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-table"></i>
+                            <span>Posts</span>
+                        </div>
+                        <i class="fas fa-grip-vertical" style="opacity: 0.6;"></i>
+                    </div>
+                    <div class="entity-body">
+                        <div class="field field-primary">
+                            <i class="fas fa-key field-icon" style="color: #f59e0b;"></i>
+                            <span class="field-name" style="font-weight: 600;">id</span>
+                            <span class="field-type">INT</span>
+                        </div>
+                        <div class="field field-foreign">
+                            <i class="fas fa-link field-icon" style="color: #3b82f6;"></i>
+                            <span class="field-name">user_id</span>
+                            <span class="field-type">INT</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">title</span>
+                            <span class="field-type">VARCHAR(200)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">content</span>
+                            <span class="field-type">TEXT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="entity-card">
+                    <div class="entity-header" style="background: var(--entity-orange);">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-table"></i>
+                            <span>Products</span>
+                        </div>
+                        <i class="fas fa-grip-vertical" style="opacity: 0.6;"></i>
+                    </div>
+                    <div class="entity-body">
+                        <div class="field field-primary">
+                            <i class="fas fa-key field-icon" style="color: #f59e0b;"></i>
+                            <span class="field-name" style="font-weight: 600;">id</span>
+                            <span class="field-type">INT</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">name</span>
+                            <span class="field-type">VARCHAR(100)</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">price</span>
+                            <span class="field-type">DECIMAL</span>
+                        </div>
+                        <div class="field">
+                            <span class="field-name">stock</span>
+                            <span class="field-type">INT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section class="section">
+            <h2 class="section-title">Form Elements</h2>
+            <div class="card" style="max-width: 500px;">
+                <div class="mb-4">
+                    <label class="text-sm font-medium mb-2" style="display: block; color: var(--gray-700);">Table Name</label>
+                    <input type="text" class="input" placeholder="Enter table name...">
+                </div>
+                <div class="mb-4">
+                    <label class="text-sm font-medium mb-2" style="display: block; color: var(--gray-700);">Description</label>
+                    <textarea class="input" rows="4" placeholder="Describe your table..."></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="text-sm font-medium mb-2" style="display: block; color: var(--gray-700);">Field Type</label>
+                    <select class="input">
+                        <option>VARCHAR</option>
+                        <option>INT</option>
+                        <option>TEXT</option>
+                        <option>TIMESTAMP</option>
+                        <option>BOOLEAN</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-save"></i>
+                    Save Table
+                </button>
+            </div>
+        </section>
+
+        <!-- Chat Interface Section -->
+        <section class="section">
+            <h2 class="section-title">AI Chat Interface</h2>
+            <div class="card" style="max-width: 600px;">
+                <!-- AI Message -->
+                <div class="chat-message">
+                    <div class="chat-avatar" style="background: var(--entity-violet); color: white;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-bubble chat-bubble-ai" style="flex: 1;">
+                        Hi! I'm your database design assistant. Describe your database in natural language and I'll create the ERD for you.
+                    </div>
+                </div>
+
+                <!-- User Message -->
+                <div class="chat-message" style="justify-content: flex-end;">
+                    <div class="chat-bubble chat-bubble-user" style="max-width: 80%;">
+                        Create a blog system with users, posts, and comments
+                    </div>
+                    <div class="chat-avatar" style="background: var(--gray-100); color: var(--primary-600);">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+
+                <!-- AI Response -->
+                <div class="chat-message">
+                    <div class="chat-avatar" style="background: var(--entity-violet); color: white;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-bubble chat-bubble-ai" style="flex: 1;">
+                        <p style="margin-bottom: 0.75rem;">I've created a blog system with the following tables:</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle" style="color: var(--success); font-size: 14px;"></i>
+                                <span style="font-weight: 600;">Users</span>
+                                <span style="font-size: 0.75rem; color: var(--gray-500);">5 fields</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle" style="color: var(--success); font-size: 14px;"></i>
+                                <span style="font-weight: 600;">Posts</span>
+                                <span style="font-size: 0.75rem; color: var(--gray-500);">5 fields</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle" style="color: var(--success); font-size: 14px;"></i>
+                                <span style="font-weight: 600;">Comments</span>
+                                <span style="font-size: 0.75rem; color: var(--gray-500);">4 fields</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div style="margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--gray-200);">
+                    <div class="flex gap-2">
+                        <input type="text" class="input" placeholder="Describe your database..." style="flex: 1;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Canvas Section -->
+        <section class="section">
+            <h2 class="section-title">Canvas Grid</h2>
+            <div class="canvas">
+                <div style="position: absolute; top: 40px; left: 40px; width: 260px;">
+                    <div class="entity-card">
+                        <div class="entity-header" style="background: var(--entity-teal);">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-table"></i>
+                                <span>Orders</span>
+                            </div>
+                        </div>
+                        <div class="entity-body">
+                            <div class="field field-primary">
+                                <i class="fas fa-key field-icon" style="color: #f59e0b;"></i>
+                                <span class="field-name" style="font-weight: 600;">id</span>
+                                <span class="field-type">INT</span>
+                            </div>
+                            <div class="field">
+                                <span class="field-name">total</span>
+                                <span class="field-type">DECIMAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: absolute; top: 40px; right: 40px; width: 260px;">
+                    <div class="entity-card">
+                        <div class="entity-header" style="background: var(--entity-pink);">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-table"></i>
+                                <span>Customers</span>
+                            </div>
+                        </div>
+                        <div class="entity-body">
+                            <div class="field field-primary">
+                                <i class="fas fa-key field-icon" style="color: #f59e0b;"></i>
+                                <span class="field-name" style="font-weight: 600;">id</span>
+                                <span class="field-type">INT</span>
+                            </div>
+                            <div class="field">
+                                <span class="field-name">name</span>
+                                <span class="field-type">VARCHAR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship Line -->
+                <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#a3a3a3" />
+                        </marker>
+                    </defs>
+                    <path d="M 300 90 L 500 90" stroke="#a3a3a3" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                    <rect x="385" y="78" width="30" height="20" fill="white" stroke="#d4d4d4" rx="4"/>
+                    <text x="400" y="92" font-size="11" fill="#525252" font-weight="600" text-anchor="middle" font-family="JetBrains Mono, monospace">1:N</text>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Badges Section -->
+        <section class="section">
+            <h2 class="section-title">Badges</h2>
+            <div class="card">
+                <div class="flex gap-2" style="flex-wrap: wrap;">
+                    <span class="badge badge-primary">Primary Key</span>
+                    <span class="badge" style="background: #d1fae5; color: #059669;">Connected</span>
+                    <span class="badge" style="background: #fef3c7; color: #92400e;">Foreign Key</span>
+                    <span class="badge badge-gray">Nullable</span>
+                    <span class="badge" style="background: #e0e7ff; color: #4338ca;">Unique</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        }
+    </script>
+
+</body>
+</html>
